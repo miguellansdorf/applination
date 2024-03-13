@@ -1,4 +1,4 @@
-defmodule ApplinationWeb.UserLoginLiveTest do
+defmodule ApplinationWeb.User.LoginLiveTest do
   use ApplinationWeb.ConnCase, async: true
 
   import Phoenix.LiveViewTest

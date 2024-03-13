@@ -1,4 +1,4 @@
-defmodule ApplinationWeb.UserForgotPasswordLiveTest do
+defmodule ApplinationWeb.User.ForgotPasswordLiveTest do
   use ApplinationWeb.ConnCase, async: true
 
   import Phoenix.LiveViewTest

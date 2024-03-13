@@ -1,4 +1,4 @@
-defmodule ApplinationWeb.UserRegistrationLive do
+defmodule ApplinationWeb.User.RegistrationLive do
   use ApplinationWeb, :live_view
 
   alias Applination.Accounts

@@ -1,4 +1,4 @@
-defmodule ApplinationWeb.UserForgotPasswordLive do
+defmodule ApplinationWeb.User.ForgotPasswordLive do
   use ApplinationWeb, :live_view
 
   alias Applination.Accounts

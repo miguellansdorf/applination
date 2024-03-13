@@ -1,4 +1,4 @@
-defmodule ApplinationWeb.UserConfirmationInstructionsLive do
+defmodule ApplinationWeb.User.ConfirmationInstructionsLive do
   use ApplinationWeb, :live_view
 
   alias Applination.Accounts

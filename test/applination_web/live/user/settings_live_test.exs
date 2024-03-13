@@ -1,4 +1,4 @@
-defmodule ApplinationWeb.UserSettingsLiveTest do
+defmodule ApplinationWeb.User.SettingsLiveTest do
   use ApplinationWeb.ConnCase, async: true
 
   alias Applination.Accounts

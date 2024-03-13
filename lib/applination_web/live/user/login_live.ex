@@ -1,4 +1,4 @@
-defmodule ApplinationWeb.UserLoginLive do
+defmodule ApplinationWeb.User.LoginLive do
   use ApplinationWeb, :live_view
 
   def render(assigns) do
