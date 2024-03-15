@@ -5,6 +5,7 @@ defmodule Applination.Accounts.User do
   @foreign_key_type :binary_id
   schema "users" do
     field :email, :string
+    field :username, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
@@ -34,11 +35,18 @@ defmodule Applination.Accounts.User do
       using this changeset for validations on a LiveView form before
       submitting the form), this option can be set to `false`.
       Defaults to `true`.
+
+    * `:validate_username` - Validates the uniqueness of the username, in case
+      you don't want to validate the uniqueness of the username (like when
+      using this changeset for validations on a LiveView form before
+      submitting the form), this option can be set to `false`.
+      Defaults to `true`.
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :username, :password])
     |> validate_email(opts)
+    |> validate_username(opts)
     |> validate_password(opts)
   end
 
@@ -48,6 +56,14 @@ defmodule Applination.Accounts.User do
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
     |> validate_length(:email, max: 160)
     |> maybe_validate_unique_email(opts)
+  end
+
+  defp validate_username(changeset, opts) do
+    changeset
+    |> validate_required([:username])
+    |> validate_format(:username, ~r/^[^\s]+$/, message: "must not have spaces")
+    |> validate_length(:username, min: 2, max: 32)
+    |> maybe_validate_unique_username(opts)
   end
 
   defp validate_password(changeset, opts) do
@@ -84,6 +100,16 @@ defmodule Applination.Accounts.User do
       changeset
       |> unsafe_validate_unique(:email, Applination.Repo)
       |> unique_constraint(:email)
+    else
+      changeset
+    end
+  end
+
+  defp maybe_validate_unique_username(changeset, opts) do
+    if Keyword.get(opts, :validate_username, true) do
+      changeset
+      |> unsafe_validate_unique(:username, Applination.Repo)
+      |> unique_constraint(:username)
     else
       changeset
     end
