@@ -26,8 +26,8 @@ defmodule ApplinationWeb.User.LoginLiveTest do
 
   describe "user login" do
     test "redirects if user login with valid credentials", %{conn: conn} do
-      password = "123456789abcd"
-      user = user_fixture(%{password: password})
+      password = "123456789abcD"
+      user = user_fixture(%{password: password, password_confirmation: password})
 
       {:ok, lv, _html} = live(conn, ~p"/users/log_in")
 
