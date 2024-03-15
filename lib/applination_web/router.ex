@@ -17,12 +17,6 @@ defmodule ApplinationWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ApplinationWeb do
-    pipe_through :browser
-
-    get "/", PageController, :home
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", ApplinationWeb do
   #   pipe_through :api
@@ -78,6 +72,7 @@ defmodule ApplinationWeb.Router do
 
     live_session :current_user,
       on_mount: [{ApplinationWeb.UserAuth, :mount_current_user}] do
+      live "/", HomeLive, :index
       live "/users/confirm/:token", User.ConfirmationLive, :edit
       live "/users/confirm", User.ConfirmationInstructionsLive, :new
     end
