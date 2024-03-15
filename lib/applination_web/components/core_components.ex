@@ -672,4 +672,18 @@ defmodule ApplinationWeb.CoreComponents do
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
   end
+
+  attr :size, :string, default: "w-2"
+  attr :gap, :string, default: "gap-1"
+  attr :animation, :string, default: nil
+
+  def logo(assigns) do
+    ~H"""
+    <div class={["flex", @gap, @animation]}>
+      <div :for={_ <- 1..3} class={["flex flex-col items-center justify-center", @gap]}>
+        <div :for={_ <- 1..3} class={["aspect-square bg-brand", @size]}></div>
+      </div>
+    </div>
+    """
+  end
 end

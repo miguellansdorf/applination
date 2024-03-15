@@ -1,13 +1,20 @@
 defmodule ApplinationWeb.Components.Navbar do
   use ApplinationWeb, :live_component
 
+  alias ApplinationWeb.User
+
   def render(assigns) do
     ~H"""
     <header class="px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between py-3 text-sm border-b border-zinc-100">
         <div class="flex items-center gap-4">
-          <.link navigate={~p"/"}>
-            Applination
+          <.link navigate={~p"/"} class="">
+            <div class="flex gap-1">
+              <.logo />
+              <span class="px-2 py-1 text-xl font-bold uppercase rounded-full text-brand">
+                Applination
+              </span>
+            </div>
           </.link>
         </div>
         <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
@@ -19,17 +26,13 @@ defmodule ApplinationWeb.Components.Navbar do
               <li>
                 <.link
                   navigate={~p"/users/settings"}
-                  class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+                  class={apply_active_class(@socket.view, User.SettingsLive)}
                 >
                   Settings
                 </.link>
               </li>
               <li>
-                <.link
-                  href={~p"/users/log_out"}
-                  method="delete"
-                  class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-                >
+                <.link href={~p"/users/log_out"} method="delete" class="hover:text-brand">
                   Log out
                 </.link>
               </li>
@@ -37,7 +40,7 @@ defmodule ApplinationWeb.Components.Navbar do
               <li>
                 <.link
                   navigate={~p"/users/register"}
-                  class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+                  class={apply_active_class(@socket.view, User.RegistrationLive)}
                 >
                   Register
                 </.link>
@@ -45,7 +48,7 @@ defmodule ApplinationWeb.Components.Navbar do
               <li>
                 <.link
                   navigate={~p"/users/log_in"}
-                  class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+                  class={apply_active_class(@socket.view, User.LoginLive)}
                 >
                   Log in
                 </.link>
@@ -56,5 +59,18 @@ defmodule ApplinationWeb.Components.Navbar do
       </div>
     </header>
     """
+  end
+
+  def apply_active_class(current_view, required_view) do
+    default_classes = "text-md leading-6 font-bold hover:text-brand transition"
+
+    active_classes =
+      if current_view == required_view do
+        "text-brand"
+      else
+        "text-zinc-900"
+      end
+
+    default_classes <> " " <> active_classes
   end
 end
