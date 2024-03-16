@@ -202,7 +202,7 @@ defmodule ApplinationWeb.CoreComponents do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="mt-10 space-y-8 bg-white">
+      <div class="mt-10 space-y-8">
         <%= render_slot(@inner_block, f) %>
         <div :for={action <- @actions} class="flex items-center justify-between gap-6 mt-2">
           <%= render_slot(action, f) %>
@@ -231,7 +231,7 @@ defmodule ApplinationWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
+        "phx-submit-loading:opacity-75 rounded-lg bg-brand/80 hover:bg-brand transition py-2 px-3",
         "text-sm font-semibold leading-6 text-white active:text-white/80",
         @class
       ]}
@@ -309,7 +309,7 @@ defmodule ApplinationWeb.CoreComponents do
 
     ~H"""
     <div phx-feedback-for={@name}>
-      <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
+      <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600 dark:text-white">
         <input type="hidden" name={@name} value="false" />
         <input
           type="checkbox"
@@ -317,7 +317,7 @@ defmodule ApplinationWeb.CoreComponents do
           name={@name}
           value="true"
           checked={@checked}
-          class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
+          class="bg-transparent rounded border-zinc-300 text-brand focus:ring-0"
           {@rest}
         />
         <%= @label %>
@@ -377,7 +377,7 @@ defmodule ApplinationWeb.CoreComponents do
         id={@id}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
+          "bg-transparent border-0 border-b mt-2 block w-full text-zinc-900 dark:text-white focus:ring-0 sm:text-sm sm:leading-6",
           "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
           @errors == [] && "border-zinc-300 focus:border-zinc-400",
           @errors != [] && "border-rose-400 focus:border-rose-400"
@@ -397,7 +397,7 @@ defmodule ApplinationWeb.CoreComponents do
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-800">
+    <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-800 dark:text-white">
       <%= render_slot(@inner_block) %>
     </label>
     """
@@ -430,10 +430,10 @@ defmodule ApplinationWeb.CoreComponents do
     ~H"""
     <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
       <div>
-        <h1 class="text-lg font-semibold leading-8 text-zinc-800">
+        <h1 class="text-lg font-semibold leading-8 text-brand">
           <%= render_slot(@inner_block) %>
         </h1>
-        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600">
+        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600 dark:text-white">
           <%= render_slot(@subtitle) %>
         </p>
       </div>
@@ -591,10 +591,11 @@ defmodule ApplinationWeb.CoreComponents do
   """
   attr :name, :string, required: true
   attr :class, :string, default: nil
+  attr :id, :string, default: nil
 
   def icon(%{name: "hero-" <> _} = assigns) do
     ~H"""
-    <span class={[@name, @class]} />
+    <span class={[@name, @class]} id={@id} />
     """
   end
 

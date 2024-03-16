@@ -15,9 +15,9 @@ defmodule ApplinationWeb.User.ConfirmationLive do
         </:actions>
       </.simple_form>
 
-      <p class="mt-4 text-center">
-        <.link href={~p"/users/register"}>Register</.link>
-        | <.link href={~p"/users/log_in"}>Log in</.link>
+      <p class="mt-4 text-center dark:text-white">
+        <.link href={~p"/users/register"} class="font-semibold text-brand">Register</.link>
+        | <.link href={~p"/users/log_in"} class="font-semibold text-brand">Log in</.link>
       </p>
     </div>
     """
