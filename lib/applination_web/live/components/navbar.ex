@@ -7,8 +7,8 @@ defmodule ApplinationWeb.Components.Navbar do
     ~H"""
     <header class="fixed w-full px-4 bg-white sm:px-6 lg:px-8 dark:bg-zinc-800">
       <div class="flex items-center justify-between py-3 text-sm border-b border-zinc-200">
-        <div class="flex items-center gap-4">
-          <.link navigate={~p"/"} class="">
+        <div class="flex items-center justify-center gap-2">
+          <.link navigate={~p"/"}>
             <div class="flex gap-1">
               <.logo />
               <span class="px-2 py-1 text-xl font-bold uppercase rounded-full text-brand">
@@ -16,9 +16,21 @@ defmodule ApplinationWeb.Components.Navbar do
               </span>
             </div>
           </.link>
+          <div phx-hook="ThemeSelector" id="theme-selector" class="h-5">
+            <.icon
+              name="hero-moon-solid"
+              class="w-5 text-purple-600 cursor-pointer dark:hidden"
+              id="dark-theme-selector"
+            />
+            <.icon
+              name="hero-sun-solid"
+              class="hidden w-5 text-yellow-500 cursor-pointer dark:block"
+              id="light-theme-selector"
+            />
+          </div>
         </div>
-        <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
-          <ul class="relative z-10 flex items-center justify-end gap-4 px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center">
+          <ul id="nav-links" class="absolute left-0 flex flex-col items-center justify-end w-full gap-4 px-4 bg-white lg:static lg:flex-row dark:bg-zinc-800 top-[-100%] sm:px-6 lg:px-8">
             <%= if @current_user do %>
               <li>
                 <.link
@@ -55,19 +67,10 @@ defmodule ApplinationWeb.Components.Navbar do
                 </.link>
               </li>
             <% end %>
-            <li phx-hook="ThemeSelector" id="theme-selector">
-              <.icon
-                name="hero-moon-solid"
-                class="w-5 text-purple-600 cursor-pointer dark:hidden"
-                id="dark-theme-selector"
-              />
-              <.icon
-                name="hero-sun-solid"
-                class="hidden w-5 text-yellow-500 cursor-pointer dark:block"
-                id="light-theme-selector"
-              />
-            </li>
           </ul>
+          <div phx-hook="MenuToggler" id="menu-toggler" class="lg:hidden">
+            <.icon name="hero-bars-3" class="w-10 h-10 cursor-pointer text-brand"/>
+          </div>
         </div>
       </div>
     </header>
